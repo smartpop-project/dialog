@@ -83,40 +83,40 @@ const config =
 						'x-google-start-bitrate' : 1000
 					}
 				},
-				{
-					kind       : 'video',
-					mimeType   : 'video/VP9',
-					clockRate  : 90000,
-					parameters :
-					{
-						'profile-id'             : 2,
-						'x-google-start-bitrate' : 1000
-					}
-				},
-				{
-					kind       : 'video',
-					mimeType   : 'video/h264',
-					clockRate  : 90000,
-					parameters :
-					{
-						'packetization-mode'      : 1,
-						'profile-level-id'        : '4d0032',
-						'level-asymmetry-allowed' : 1,
-						'x-google-start-bitrate'  : 1000
-					}
-				},
-				{
-					kind       : 'video',
-					mimeType   : 'video/h264',
-					clockRate  : 90000,
-					parameters :
-					{
-						'packetization-mode'      : 1,
-						'profile-level-id'        : '42e01f',
-						'level-asymmetry-allowed' : 1,
-						'x-google-start-bitrate'  : 1000
-					}
-				}
+				// {
+				// 	kind       : 'video',
+				// 	mimeType   : 'video/VP9',
+				// 	clockRate  : 90000,
+				// 	parameters :
+				// 	{
+				// 		'profile-id'             : 2,
+				// 		'x-google-start-bitrate' : 1000
+				// 	}
+				// },
+				// {
+				// 	kind       : 'video',
+				// 	mimeType   : 'video/h264',
+				// 	clockRate  : 90000,
+				// 	parameters :
+				// 	{
+				// 		'packetization-mode'      : 1,
+				// 		'profile-level-id'        : '4d0032',
+				// 		'level-asymmetry-allowed' : 1,
+				// 		'x-google-start-bitrate'  : 1000
+				// 	}
+				// },
+				// {
+				// 	kind       : 'video',
+				// 	mimeType   : 'video/h264',
+				// 	clockRate  : 90000,
+				// 	parameters :
+				// 	{
+				// 		'packetization-mode'      : 1,
+				// 		'profile-level-id'        : '42e01f',
+				// 		'level-asymmetry-allowed' : 1,
+				// 		'x-google-start-bitrate'  : 1000
+				// 	}
+				// }
 			]
 		},
 		// mediasoup WebRtcTransport options for WebRTC endpoints (mediasoup-client,
@@ -134,17 +134,21 @@ const config =
 					announcedIp : process.env.MEDIASOUP_ANNOUNCED_IP
 				}
 			],
-			initialAvailableOutgoingBitrate : 1000000,
-			minimumAvailableOutgoingBitrate : 600000,
+			initialAvailableOutgoingBitrate : 10000000,
+			minimumAvailableOutgoingBitrate : 10000000,
 			maxSctpMessageSize              : 262144,
 			// Additional options that are not part of WebRtcTransportOptions.
-			maxIncomingBitrate              : 1500000
+			// maxIncomingBitrate              : 1500000
+			maxIncomingBitrate              : 0,
+			maxOutgoingBitrate				: 0,
+			minOutgoingBitrate				: 1000000
+
 		}
 	},
 	authKey: process.env.AUTH_KEY || `${__dirname}/certs/perms.pub.pem`
 };
 
-if (process.env.MEDIASOUP_ANNOUNCED_IP) 
+if (process.env.MEDIASOUP_ANNOUNCED_IP)
 {
 	// For now we have to bind to 0.0.0.0 to ensure TURN and non-TURN connectivity.
 	config.mediasoup.webRtcTransportOptions.listenIps.push({
