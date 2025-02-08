@@ -15,8 +15,10 @@ MEDIASOUP_ANNOUNCED_IP=$(curl "https://ipinfo.io/ip")
 # 그래서 실행에 실패하다.
 docker run --privileged --log-opt max-size=10m --log-opt max-file=3 -d --restart=always --name dialog \
 --network="host" \
--v $(pwd)/certs/cert.pem:/app/certs/fullchain.pem \
--v $(pwd)/certs/key.pem:/app/certs/privkey.pem \
+-v etc/letsencrypt/live/oogame.com/fullchain.pem:/app/certs/fullchain.pem \
+-v etc/letsencrypt/live/oogame.com/privkey.pem:/app/certs/privkey.pem \
+#-v $(pwd)/certs/cert.pem:/app/certs/fullchain.pem \
+#-v $(pwd)/certs/key.pem:/app/certs/privkey.pem \
 -v $(pwd)/certs/perms.pub.pem:/app/certs/perms.pub.pem \
 -e MEDIASOUP_LISTEN_IP="0.0.0.0" \
 -e MEDIASOUP_ANNOUNCED_IP=${MEDIASOUP_ANNOUNCED_IP} \
